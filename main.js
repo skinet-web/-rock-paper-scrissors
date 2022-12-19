@@ -1,98 +1,147 @@
-// import './style.css'
-// import javascriptLogo from './javascript.svg'
-// import { setupCounter } from './counter.js'
-
-// document.querySelector('#app').innerHTML = `
-//   <div>
-//     <a href="https://vitejs.dev" target="_blank">
-//       <img src="/vite.svg" class="logo" alt="Vite logo" />
-//     </a>
-//     <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-//       <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-//     </a>
-//     <h1>Hello Vite!</h1>
-//     <div class="card">
-//       <button id="counter" type="button"></button>
-//     </div>
-//     <p class="read-the-docs">
-//       Click on the Vite logo to learn more
-//     </p>
-//   </div>
-// `
-
-// setupCounter(document.querySelector('#counter'))
+import './style.css'
 
 let computerScore = 0;
 let playerScore = 0;
 
-const r = 'Rock';
-const s = 'Scissors';
-const p = 'Paper';
-
-
 function getComputerChoice(){
-  const choice = ['Rock', 'Paper', 'Scissors'];
+  const choice = ['Rock', 'Paper', 'Scrissors'];
   const num = Math.floor(Math.random() * choice.length);
   return choice[num].toUpperCase();
 }
 
-function getPlayerChoice(){
-  const choice = prompt("Please enter your choice:");
-  return choice.toUpperCase();
+function checkWinner(playerScore, computerScore){
+  if(playerScore === 5){
+    const h2 = document.createElement('h2')
+    h2.classList.add('player-won');
+    h2.innerText = `You won ${playerScore} to ${computerScore}. Great Job!`;
+    outcomeHTML.appendChild(h2);
+  } else if (computerScore === 5) {
+    const h2 = document.createElement('h2')
+    h2.innerText = `You lost ${playerScore} to ${computerScore}. Good luck next time!`;
+    outcomeHTML.appendChild(h2);
+  }
 }
 
 
+const rockHTML = document.querySelector('#rock');
+rockHTML.addEventListener("click", function(){
+  const playerSelection = 'ROCK';
+  const computerSelection = getComputerChoice();
+  playRound(playerSelection, computerSelection);
+  liveScore(playerScore, computerScore);
+  checkWinner(playerScore, computerScore)
+  
+  
+});
+
+const paperHTML = document.querySelector('#paper');
+paperHTML.addEventListener("click", function() {
+  const playerSelection = 'PAPER';
+  const computerSelection = getComputerChoice();
+  playRound(playerSelection, computerSelection);
+  liveScore(playerScore, computerScore);
+  checkWinner(playerScore, computerScore);
+  
+});
+
+const scrissorsHTML = document.querySelector('#scrissors');
+scrissorsHTML.addEventListener("click", function() {
+  const playerSelection = 'SCRISSORS';
+  const computerSelection = getComputerChoice();
+  playRound(playerSelection, computerSelection);
+  liveScore(playerScore, computerScore);
+  checkWinner(playerScore, computerScore);
+});
+
+const outcomeHTML = document.querySelector('#outcome');
+const playerSpan = document.querySelector('#playScore');
+const compSpan = document.querySelector('#compScore');
+
+function liveScore(playerScore, computerScore){
+  // const h1 = document.createElement('h1')
+  playerSpan.innerText = `Player score: ${playerScore}`;  
+  compSpan.innerText = `Computer Score: ${computerScore}`;
+ }
 
 
 
 function playRound(playerSelection, computerSelection) {
-
-  let Winner;
   
-  if (playerSelection === r.toUpperCase() && computerSelection === s.toUpperCase()){
+  if (playerSelection === 'ROCK' && computerSelection === 'SCRISSORS'){
     playerScore++;
-    Winner = "You Won! Rock beats Scissors";
-  } else if (playerSelection === s.toUpperCase() && computerSelection === p.toUpperCase()){
+    const para = document.createElement('p');
+    para.innerText = "You Won! Rock beats Scrissors";
+    outcomeHTML.appendChild(para);
+    
+  } else if (playerSelection === 'SCRISSORS' && computerSelection === 'PAPER'){
     playerScore++;
-    Winner = "You Won! Scissors beats Paper";
-  } else if (playerSelection === p.toUpperCase() && computerSelection === r.toUpperCase()){
+    const para = document.createElement('p');
+    para.innerText = "You Won! Scrissors beats Paper";
+    outcomeHTML.appendChild(para);
+
+  } else if (playerSelection === 'PAPER' && computerSelection === 'ROCK'){
     playerScore++;
-    Winner = "You Won! Paper beats Rock";
-  } else if (playerSelection === s.toUpperCase() && computerSelection === r.toUpperCase()){
+    const para = document.createElement('p');
+    para.innerText ="You Won! Paper beats Rock";
+    outcomeHTML.appendChild(para);
+
+  } else if (playerSelection === 'SCRISSORS' && computerSelection === 'ROCK'){
     computerScore++;
-    Winner = "You Lost! Rock beats Scissors";
-  } else if (playerSelection === r.toUpperCase() && computerSelection === p.toUpperCase()){
+    const para = document.createElement('p');
+    para.innerText = "You Lost! Rock beats Scrissors";
+    outcomeHTML.appendChild(para);
+
+  } else if (playerSelection === 'ROCK' && computerSelection === 'PAPER'){
     computerScore++;
-    Winner = "You Lost! Paper beats Rock";
-  } else if (playerSelection === p.toUpperCase() && computerSelection === s.toUpperCase()){
+    const para = document.createElement('p');
+    para.innerText = "You Lost! Paper beats Rock";
+    outcomeHTML.appendChild(para);
+
+  } else if (playerSelection === 'PAPER' && computerSelection === 'SCRISSORS'){
     computerScore++;
-    Winner = "You Lost! Scissors beats Paper";
+    const para = document.createElement('p');
+    para.innerText = "You Lost! Scrissors beats Paper";
+    outcomeHTML.appendChild(para);
+
   } else if ( playerSelection === computerSelection){
-    Winner = "It's a tie";
+    const para = document.createElement('p');
+    para.innerText = "It's a tie";
+    outcomeHTML.appendChild(para);
   }
   
-  return Winner;
-}
+  
+};
 
 
 
 
+// const game = () =>  {
 
-const game = () =>  {
+//   for (let i = 0; i < 5; i++){
+//     const playerSelection  = 'rock'; 
+//     const computerSelection = getComputerChoice();
+//     console.log(playRound(playerSelection, computerSelection));
+//   }
 
-  for (let i = 0; i < 5; i++){
-    const playerSelection = getPlayerChoice();
-    const computerSelection = getComputerChoice();
-    console.log(playRound(playerSelection, computerSelection));
-  }
+//   if (playerScore > computerScore){
+//     return 'You beat computer!'
+//   } else if (playerScore < computerScore){
+//     return 'The computer beat you! Sadge'
+//   } else {
+//     return 'Its a tie';
+//   }
+// }
 
-  if (playerScore > computerScore){
-    return 'You beat computer!'
-  } else if (playerScore < computerScore){
-    return 'The computer beat you! Sadge'
-  } else {
-    return 'Its a tie';
-  }
-}
+// game()
 
-game()
+// Old code before i needed to add buttons
+
+// const r = 'Rock';
+// const s = 'Scissors';
+// const p = 'Paper';
+
+
+// function getPlayerChoice(){
+//   const choice = 'rock';
+//   return choice.toUpperCase();
+// }

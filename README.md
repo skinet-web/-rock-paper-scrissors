@@ -4,7 +4,7 @@ Live link: https://rock-paper-scrissors232.netlify.app/
 
 Lesson link: https://www.theodinproject.com/lessons/foundations-rock-paper-scissors
 
-I am not really proud of how it looks, but at least the functionality is there and is working.
+I am not proud of how it looks, but at least the functionality is there and is working.
 
 By completing the Rock-Paper-Scissors project from The Odin Project, I have learned the following skills:
 
